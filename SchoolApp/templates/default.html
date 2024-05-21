@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "bootstrap.min.css" %}">
+    {% block style %} {% endblock %}
+    {% block title %}
+        <title>Mon app</title>
+    {% endblock %}
+</head>
+<body class="mt-5">
+    {% block content %}
+    
+    {% endblock content %}
+    <script src="{% static 'default_script.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    {% block script%}{% endblock script %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends "default.html" %}
+{% load static %}
+{% block style %}
+    <title>SchoolApp </title>
+    <style>
+        body {
+            background: url("{%static 'icons/background2.jpg'%}");
+        }
+
+        .body{
+            height: 100vh;
+        }
+    </style>{% endblock style %}%%
+
+{% block content %}
+<div class="container-fluid  body d-flex align-items-center justify-content-center flex-column ">
+    <h1 class="text-secondary display-3" style="font-weight: bold;">Plateforme de SchoolApp</h1>
+    <div >
+        <a class="btn bg-primary p-3 text-light" href="{% url 'user:signup'%}">S'inscrire</a>
+        <a class="btn bg-primary p-3 text-light" href="{% url 'user:home'%}">Se connecter</a>
+    </div>
+
+</div>
+{% endblock content %}
+

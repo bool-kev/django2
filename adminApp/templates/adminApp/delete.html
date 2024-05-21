@@ -1,0 +1,17 @@
+{% extends "default.html" %}
+
+{% block content %}
+
+<h1 class="mx-5 mt-4  fst-bold ">Suppression d'un objet </h1>
+
+<div class="container">
+    <form action="" class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="delete" class="form-label d-block display-6 mt-5">Voulez vous supprimer {{object.title}} </label>
+        <input type="submit" value="supprimer"  class="btn btn-danger">
+        <a href="{% url 'adminApp:home' %}" class="btn btn-info ms-5">Retour Acceuil</a>
+    </form>
+
+
+</div>
+{% endblock content %}

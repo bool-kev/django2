@@ -1,0 +1,92 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'style1.css' %}">
+    <title>SchoolApp home</title>
+</head>
+<body>
+    <section id="sidebar">
+        <a href="{% url 'user:home' %}" class="brand">
+            <span class="text" style="padding-left:1rem;">LES MATIERES</span>
+        </a>
+        <ul class="side-menu top">
+        {% for matiere in matieres %}
+            <li {% if matiere.title == Vue %} class='active'{% endif %}>
+                <a href="{% url 'user:matiere.vue' matiere=matiere.slug%}">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">
+                      
+                            {{ matiere }} 
+                           
+                           
+                    </span>
+                   
+                </a>
+                <span class="nbre-cour">{{ matiere.cour_set.count }}</span>
+            </li>
+        
+          
+        {% endfor %}
+        </ul>
+    </section>
+    
+    <section id="content">
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Recherchez un cours...">
+                </div>
+            </form>
+            
+            <form action="{% url 'user:logout' %}" method="post" style="display: flex;justify-content: space-between; align-items: center;width: 15%;">
+                <p id="user" style="font-weight: bold;font-style: italic; margin-top: -15px;">
+                    <span style="font-size: 4rem;color: green;">.</span>{{request.user}}
+                </p>
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}" >
+                <button type="submit" style="cursor: pointer; background-color: white;border: 0;" >
+                    <img src="{% static 'icons/logout.png'%}" alt="" style="filter: drop-shadow(0 0 2px red);" title="Deconnexion">
+                </button>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            
+        </nav>
+    
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h3>{{ Vue }}</h3>
+                </div>
+            </div>
+    
+            <ul class="box-info">
+                <h2 class='cacher' id='switch-hidden'>Aucun cours ne correspond a votre recherche </h2>
+               {% for cour in cours %}
+                    <li>
+                        <img src="{% static cour.getIcons %}" alt="">
+                        <span class="text">
+                            <p>{{ cour.title }}</p>
+                        </span>
+                        <div class="lien-titre">
+                            <p>{{ cour.view }} Vue(s)</p>
+                            <a href="{% url 'user:cour.vue' matiere=cour.matiere.slug cours=cour.slug %}">Lire</a>
+                        </div>
+                        
+                    </li>
+                    {% empty %} 
+                   <h1 style="color:red;font-style:italic;"> Aucun cours disponibles pour cette matiere</h1>
+                {% endfor %}
+            </ul>
+        </main>
+    </section>
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
+

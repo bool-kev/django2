@@ -1,0 +1,58 @@
+{% extends "default.html" %}
+{% load static %}
+{% block title %}
+    <title>Page d'admin</title>
+{% endblock title %}
+
+
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h2>Les matieres</h2>
+                <ul class="list-group  mb-4">
+                    {% for matiere in matieres %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start  {% if matiere.title == mat.title %}active{% endif %}">
+                        <div class="ms-2 me-auto fw-bold "><a href="{% url 'adminApp:home.matiere' matiere=matiere.slug %}" class="text-black">{{ matiere.title}}</a></div>
+                        <a href="{% url 'adminApp:delete.matiere' slug=matiere.slug %}" class="btn btn-danger" ><img src="{% static 'img/bxs-trash.svg' %}" ></a>
+                    </li>
+                    {% endfor%}
+                </ul>
+                <a href="{% url 'adminApp:new.matiere' %}" class="btn btn-primary">Ajouter une Matiere</a>
+                <a href="{% url 'adminApp:new.cours' %}" class="btn btn-primary ms-3">Ajouter un cour</a>
+            </div>
+            <div class="col-md-8 border border-3 border-primary">
+                <h3 class="text-center text-decoration-underline my-5">Liste des cours de {{mat.title}}</h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#id</th>
+                            <th>Titre</th>
+                            <th>slug</th>
+                            <th class="function">commande</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cour in cours %}
+                            <tr>
+                                <td>{{cour.id}}</td>
+                                <td>{{cour.title}}</td>
+                                <td>{{cour.slug}}</td>
+                                <td><a href="{% url 'adminApp:update.cours' slug=cour.slug %}" class="btn btn-warning me-2" ><img src="{% static 'img/bxs-edit.svg' %}" ></a><a href="{% url 'adminApp:delete.cours' slug=cour.slug id=cour.id%}" class="btn btn-danger" ><img src="{% static 'img/bxs-trash.svg' %}" ></a></td>
+                            </tr>
+                        {%empty %}
+                            <tr>
+                                <td colspan="3">Aucun cours cours enregistrer pour cette matiere<td>
+                                <td><a href="{% url 'adminApp:new.cours.matiere' matiere=mat.slug %}" class="btn btn-primary">Ajouter</a></td>     
+                            <tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+{% endblock content %}
+

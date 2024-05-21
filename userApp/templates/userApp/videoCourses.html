@@ -1,0 +1,52 @@
+{% extends "default.html" %}
+{% load static %}
+{% block title %}
+    <title>{{cour.title}}</title>
+    <style>
+        .footer {
+    padding: 2rem;
+    background-color: #06050d;
+    margin-top: 5rem;
+}
+
+.footer p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    
+}
+    </style>
+{% endblock title %}
+{% block content %}
+    <div class="container">
+        <h3 class="fst-italic text-secondary">><a class="" style="text-decoration: none;" href="{% url 'user:matiere.vue' matiere=cour.matiere.slug %}">{{cour.matiere.title}}</a>>{{cour.title}}</h3>
+        <div class="row mt-4 p-3">
+            <div class="col-md-5 card p-3 mt-0 mt-lg-4 " style="height: 60vh;overflow: auto;">
+                <h2 class="fst-italic fw-bold mb-4">Description</h2>
+                {% if cour.description %}
+                    <p class="fs-3 ms-4 mt-lg-5">{{cour.description}}</p>
+                {% else %}
+                    <p class="fs-4 ms-4 mt-lg-5 fst-italic">Aucune description pour cet cours</p>
+                {% endif %}
+            </div>
+            <div class="col-md-7 d-flex justify-content-center align-items-center mt-sm-4">
+                {% if cour.file %}
+                    <div class="card" style="width: 90%;margin-top: 0;">
+                        <video  class="card-img-top mx-auto mt-3 " style="height: 20rem;width: 35rem;" controls><source src="{{cour.file.url}}" type="video/mp4"></video>
+                        <div class="card-body">
+                        <h5 class="card-title fst-italic text-center">{{cour.title}}</h5>
+                        <!-- <p class="card-text"></p> -->
+                        <a href="{{ cour.file.url}}" class="btn btn-primary w-100 mt-5" target="_blank">Telecharger</a>
+                        </div>
+                    </div>
+                {% endif%}
+            </div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+        <p>Copyright 2024, all right reserved</p>
+    </footer>
+{% endblock content %}
+
